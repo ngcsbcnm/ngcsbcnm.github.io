@@ -3,7 +3,7 @@
 <html lang="zh">
     <head>
         <meta charset="UTF-8">
-        <title>Archives | HongKongDoll</title>
+        <title>Linux常用文件管理命令 | HongKongDoll</title>
         <meta name="author" content="HongKongDoll">
         <meta name="description" content="66666">
         <meta name="keywords" content="">
@@ -130,88 +130,73 @@
     </div>
 </nav>
 
+                <div class="article">
+    <div>
+        <h1>Linux常用文件管理命令 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/2/20
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
                 
-<div id="archives">
-    
-    <div id="search-mask" style="z-index: 4"></div>
-    <input id="search-bar" class="input" placeholder="搜索" style="z-index: 5">
-    
-    
-    <div class="timeline" style="z-index: 3" data-title="树的遍历">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/">
-                <h3>树的遍历</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%80%92%E5%BD%92/" style="color: #03a9f4">递归</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/BFS/" style="color: #03a9f4">BFS</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" style="color: #00bcd4">树的遍历</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+                <a href="/tags/Linux/" style="color: #00a596">Linux</a>
+            </span>
+            
+        </span>
+        
     </div>
     
-    <div class="timeline" style="z-index: 2" data-title="linux常用文件管理命令">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/Linux%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4/">
-                <h3>Linux常用文件管理命令</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Linux/" style="color: #00a596">Linux</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h4 id="取消命令并换行"><a href="#取消命令并换行" class="headerlink" title="取消命令并换行"></a>取消命令并换行</h4><pre><code class="bash"> ctrl c 
+</code></pre>
+<h4 id="清空本行命令"><a href="#清空本行命令" class="headerlink" title="清空本行命令"></a>清空本行命令</h4><pre><code class="bash"> ctrl u
+</code></pre>
+<span id="more"></span>
+
+<h3 id="补全命令和文件名"><a href="#补全命令和文件名" class="headerlink" title="补全命令和文件名"></a>补全命令和文件名</h3><pre><code class="bash">tab键
+</code></pre>
+<h4 id="显示目录下的文件"><a href="#显示目录下的文件" class="headerlink" title="显示目录下的文件"></a>显示目录下的文件</h4><pre><code class="bash">ls #列出当前目录下所有文件，蓝色的是文件夹，白色的是普通文件，绿色的是可执行文件
+</code></pre>
+<h4 id="显示当前路径"><a href="#显示当前路径" class="headerlink" title="显示当前路径"></a>显示当前路径</h4><pre><code class="bash">pwd
+</code></pre>
+<h4 id="进入目录"><a href="#进入目录" class="headerlink" title="进入目录"></a>进入目录</h4><pre><code class="bash">cd XXXX #进入XXXX目录下，cd .. 返回上级目录
+</code></pre>
+<h4 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h4><pre><code class="bash">cp XXX YYY #将XXX文件复制成YYY，XXX和YYY可以是路径，比如../dir_c/a.txt，表示上层目录下的dir_c文件夹下的文件a.txt
+</code></pre>
+<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><pre><code class="bash">mkdir XXX #创建目录XXX
+</code></pre>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><pre><code class="bash">rm XXX #删除普通文件;  rm XXX -r: 删除文件夹
+</code></pre>
+<h4 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h4><pre><code class="bash">mv XXX YYY #将XXX文件移动到YYY，和cp命令一样，XXX和YYY可以是一个路径；重命名也是用这个命令
+</code></pre>
+<h4 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h4><pre><code class="bash"> touch XXX  #创建一个文件
+</code></pre>
+<h4 id="展示文件"><a href="#展示文件" class="headerlink" title="展示文件"></a>展示文件</h4><pre><code class="bash"> cat XXX #展示文件XXX中的内容
+</code></pre>
+<h4 id="复制文本"><a href="#复制文本" class="headerlink" title="复制文本"></a>复制文本</h4><pre><code class="bash">windows/Linux下：Ctrl + insert，Mac下：command + c
+</code></pre>
+<h4 id="粘贴文本"><a href="#粘贴文本" class="headerlink" title="粘贴文本"></a>粘贴文本</h4><pre><code class="bash">  windows/Linux下：Shift + insert，Mac下：command + v
+</code></pre>
+<p>​    </p>
+
     </div>
     
-    <div class="timeline" style="z-index: 1" data-title="helloworld">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/hello-world/">
-                <h3>Hello World</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
-    </div>
+    
+    
+    
+    
+    
     
 </div>
 
@@ -238,6 +223,11 @@
         </div>
         <script src="/js/functions.js"></script>
 <script src="/js/particlex.js"></script>
+
+
+
+
+
 
 
     </body>

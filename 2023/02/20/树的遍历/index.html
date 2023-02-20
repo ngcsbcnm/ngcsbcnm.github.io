@@ -3,7 +3,7 @@
 <html lang="zh">
     <head>
         <meta charset="UTF-8">
-        <title>Archives | HongKongDoll</title>
+        <title>树的遍历 | HongKongDoll</title>
         <meta name="author" content="HongKongDoll">
         <meta name="description" content="66666">
         <meta name="keywords" content="">
@@ -130,88 +130,106 @@
     </div>
 </nav>
 
+                <div class="article">
+    <div>
+        <h1>树的遍历 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/2/20
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
                 
-<div id="archives">
-    
-    <div id="search-mask" style="z-index: 4"></div>
-    <input id="search-bar" class="input" placeholder="搜索" style="z-index: 5">
-    
-    
-    <div class="timeline" style="z-index: 3" data-title="树的遍历">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/">
-                <h3>树的遍历</h3>
-            </a>
-            <div class="info">
+                <a href="/tags/%E9%80%92%E5%BD%92/" style="color: #00bcd4">递归</a>
+            </span>
+            
+            <span class="tag">
                 
+                <a href="/tags/BFS/" style="color: #ffa2c4">BFS</a>
+            </span>
+            
+            <span class="tag">
                 
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%80%92%E5%BD%92/" style="color: #03a9f4">递归</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/BFS/" style="color: #03a9f4">BFS</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" style="color: #00bcd4">树的遍历</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+                <a href="/tags/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" style="color: #00bcd4">树的遍历</a>
+            </span>
+            
+        </span>
+        
     </div>
     
-    <div class="timeline" style="z-index: 2" data-title="linux常用文件管理命令">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/Linux%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4/">
-                <h3>Linux常用文件管理命令</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Linux/" style="color: #00a596">Linux</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>一个二叉树，树中每个节点的权值互不相同。<br>现在给出它的后序遍历和中序遍历，请你输出它的层序遍历。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N，表示二叉树的节点数。</p>
+<p>第二行包含 N个整数，表示二叉树的后序遍历。</p>
+<p>第三行包含 N个整数，表示二叉树的中序遍历。</p>
+<span id="more"></span>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一行 N个整数，表示二叉树的层序遍历。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤30<br>官方并未给出各节点权值的取值范围，为方便起见，在本网站范围取为 1∼N。</p>
+<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>7
+2 3 1 5 7 6 4
+1 2 3 4 5 6 7
+</code></pre>
+<h4 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h4><pre><code>4 1 6 3 5 7 2
+</code></pre>
+<pre><code class="python">from collections import defaultdict,deque
+class Node:
+    def __init__(self,val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+n = int(input())
+postorder = list(map(int,input().split()))
+
+inorder = list(map(int,input().split()))
+index = defaultdict(int)
+for i in range(n):
+    index[inorder[i]] = i
+
+def dfs(pl,pr,il,ir):
+    if pl &gt; pr:
+        return None
+    root = Node(postorder[pr])
+    inorder_root_index = index[root.val]
+    left_num = inorder_root_index - il
+    root.left = dfs(pl,pl+left_num - 1,il,inorder_root_index-1)
+    root.right = dfs(pl+left_num,pr-1,inorder_root_index+1,ir)
+    
+    return root
+
+root = dfs(0,n-1,0,n-1)
+
+q = deque()
+
+q.append(root)
+
+while q:
+    
+    node = q.popleft()
+    print(node.val,end= &#39; &#39;)
+    if node.left:
+        q.append(node.left)
+    if node.right:
+        q.append(node.right)
+</code></pre>
+
     </div>
     
-    <div class="timeline" style="z-index: 1" data-title="helloworld">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/20</div>
-            <a href="/2023/02/20/hello-world/">
-                <h3>Hello World</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
-    </div>
+    
+    
+    
+    
+    
     
 </div>
 
@@ -238,6 +256,11 @@
         </div>
         <script src="/js/functions.js"></script>
 <script src="/js/particlex.js"></script>
+
+
+
+
+
 
 
     </body>
