@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/p8.jpg">
+  
+  <title>物理层 | Blog</title>
+  
+  <meta name="author" content="John Doe" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="408, 计算机网络" />
+  
+  <meta name="description" content="一、物理层基本概念物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段有许多不同方式，物理层的作用正是要尽可能的屏蔽掉这些传输媒体和通讯手段的差异，使物理层上面的数据链路层感觉不到这些差异，这样就可使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体和通讯手段是什么。计算机网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物理层">
+<meta property="og:url" content="http://example.com/2023/07/28/%E7%89%A9%E7%90%86%E5%B1%82/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="一、物理层基本概念物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段有许多不同方式，物理层的作用正是要尽可能的屏蔽掉这些传输媒体和通讯手段的差异，使物理层上面的数据链路层感觉不到这些差异，这样就可使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体和通讯手段是什么。计算机网">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/p8.jpg">
+<meta property="article:published_time" content="2023-07-28T03:07:05.000Z">
+<meta property="article:modified_time" content="2023-07-28T04:50:37.839Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="408">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/p8.jpg">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-color-dark.min.css" media="(prefers-color-scheme: dark)"></script>
+    <script src="/js/kr-dark.min.js"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+    
+  </style>
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Blog</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/28/%E7%89%A9%E7%90%86%E5%B1%82/">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">物理层</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2023-07-28T03:07:05.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-07-28</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">John Doe</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~3.66K
+                        
+                        字
+                    </li>
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1690519837839"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h3 id="一、物理层基本概念"><a href="#一、物理层基本概念" class="headerlink" title="一、物理层基本概念"></a>一、物理层基本概念</h3><p><strong>物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体</strong><br>现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段有许多不同方式，物理层的作用正是要尽可能的屏蔽掉这些传输媒体和通讯手段的差异，使物理层上面的数据链路层感觉不到这些差异，这样就可使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体和通讯手段是什么。<br><strong>计算机网络体系结构中的物理层，就是要解决在各种传输媒体上传输比特 0 和 1 的问题，进而给数据链路层提供透明传输比特流的服务</strong><br><img src="/images/408/ComputerNetwork/3/1.png"></p>
+<ul>
+<li>可以将物理层的主要任务描述为确定与传输媒体到接口有关的一些特性：<ul>
+<li><p>(1) 机械特性：接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置等</p>
+</li>
+<li><p>(2) 电气特性：接口电路的各条线上出现的电压范围</p>
+</li>
+<li><p>(3) 功能特性：某条线上出现某一电平电压的意义</p>
+</li>
+<li><p>(4) 过程特性：对于不同功能的各种可能事件的出现顺序</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、物理层下面的传输媒体"><a href="#二、物理层下面的传输媒体" class="headerlink" title="二、物理层下面的传输媒体"></a>二、物理层下面的传输媒体</h3><h4 id="1-导引型传输媒体"><a href="#1-导引型传输媒体" class="headerlink" title="1. 导引型传输媒体"></a>1. 导引型传输媒体</h4><ul>
+<li><p>同轴电缆<br><img src="/images/408/ComputerNetwork/3/2.png"></p>
+</li>
+<li><p>双绞线<br><img src="/images/408/ComputerNetwork/3/3.png"><br><strong>需要记住绞合的作用：抵御外界电磁波干扰、减少相邻导线的电磁干扰</strong></p>
+</li>
+<li><p>光纤<br><img src="/images/408/ComputerNetwork/3/4.png"></p>
+</li>
+</ul>
+<h4 id="2-非导引型传输媒体"><a href="#2-非导引型传输媒体" class="headerlink" title="2. 非导引型传输媒体"></a>2. 非导引型传输媒体</h4><p><strong>可以利用利用电磁波在自由空间的传播来传送信息</strong></p>
+<ul>
+<li>短波通信（即高频通信）主要是靠电离层的反射，但短波信道的通信质量较差，传输速率低</li>
+<li><strong>微波在空间主要是直线传播</strong><br>传统微波通信有两种方式：</li>
+<li><strong>地面微波接力通信</strong></li>
+<li><strong>卫星通信</strong></li>
+</ul>
+<p>无线局域网使用的 ISM 频段</p>
+<p>要使用某一段无线电频谱进行通信，通常必须得到本国政府有关无线电频谱管理机构的许可证。但是，也有一些无线电频段是可以自由使用的。例如：ISM。各国的 ISM 标准有可能略有差别。<br><img src="/images/408/ComputerNetwork/3/5.png"></p>
+<h3 id="三、传输方式"><a href="#三、传输方式" class="headerlink" title="三、传输方式"></a>三、传输方式</h3><h4 id="1-串行传输、并行传输"><a href="#1-串行传输、并行传输" class="headerlink" title="1. 串行传输、并行传输"></a>1. 串行传输、并行传输</h4><p><strong>串行传输：数据是一个比特一个比特依次发送的，只需要一条数据传输线路</strong><br><img src="/images/408/ComputerNetwork/3/6.png"></p>
+<p><strong>并行传输：一次发送 n 个比特，需要 n 条传输线路</strong><br><img src="/images/408/ComputerNetwork/3/7.png"></p>
+<ul>
+<li>并行传输是速度是串行传输的 n 倍，但是成本高</li>
+</ul>
+<p>在计算机网络中，<strong>数据远距离传输</strong>使用<strong>串行传输</strong>，计算机<strong>内部的数据传输</strong>，常使用<strong>并行传输</strong></p>
+<h4 id="2-同步传输、异步传输"><a href="#2-同步传输、异步传输" class="headerlink" title="2. 同步传输、异步传输"></a>2. 同步传输、异步传输</h4><h5 id="1-同步传输"><a href="#1-同步传输" class="headerlink" title="1. 同步传输"></a>1. 同步传输</h5><p><strong>同步传输：数据块以稳定的比特流形式传输，字节之间没有间隔，接收端在每个比特的中间时刻进行检测，以判别接收到的是比特0或是比特1。</strong></p>
+<p>由于不用设备的时钟频率存在差异，传输大量数据时，所产生判别时刻的累计误差会导致对比特信号的判别错位，需要采取方式使双方时钟同步。</p>
+<p>实现收发双方时钟同步的方法</p>
+<ul>
+<li><strong>外同步：</strong>在收发双方之间添加一条单独的时钟信号线</li>
+<li><strong>内同步：</strong>发送端将时钟同步信号编码到发送数据中一起传输（例如传统以太网所采用的曼切斯特编码）</li>
+</ul>
+<h5 id="2-异步传输"><a href="#2-异步传输" class="headerlink" title="2. 异步传输"></a>2. 异步传输</h5><p>异步传输：以字节为独立的传输单位，字节之间的时间间隔不是固定的。接收端仅在每个字节的起始处对字节内的比特实现同步。为此通常在每个字节的前后分别加上起始位和结束位。<br><img src="/images/408/ComputerNetwork/3/8.png"></p>
+<ul>
+<li>字节之间异步（字节之间的时间间隔不固定）</li>
+<li>字节中的每个比特仍然要同步（各比特的持续时间相同）</li>
+</ul>
+<h5 id="3-单向通信、双向交替通信、双向同时通信"><a href="#3-单向通信、双向交替通信、双向同时通信" class="headerlink" title="3. 单向通信、双向交替通信、双向同时通信"></a>3. 单向通信、双向交替通信、双向同时通信</h5><p><strong>1. 单向通信（单工）</strong><br>单向通信：又称单工通信，通信双发只有一个传输方向<br><img src="/images/408/ComputerNetwork/3/9.png"></p>
+<ul>
+<li>例如，无线电广播就采取这种方式</li>
+</ul>
+<p><strong>2. 双向交替通信（半双工）</strong><br>双向交替通信：通信双方可以互相传输数据，但不能同时进行</p>
+<p><img src="/images/408/ComputerNetwork/3/10.png"></p>
+<ul>
+<li>例如，对讲机采取此通信方式</li>
+</ul>
+<p><strong>3. 双向同时通信（全双工）</strong><br>双向同时通信：通信双方可以同时发送和接收信息</p>
+<p><img src="/images/408/ComputerNetwork/3/11.png"></p>
+<ul>
+<li>例如，电话采取此通信方式<br><strong>单向通信需要一个信道，而双向交替通信、双向同时通信需要两个信道（每个方向各一个）</strong></li>
+</ul>
+<h3 id="四、编码与调制"><a href="#四、编码与调制" class="headerlink" title="四、编码与调制"></a>四、编码与调制</h3><h4 id="1-编码、调制、码元概念"><a href="#1-编码、调制、码元概念" class="headerlink" title="1. 编码、调制、码元概念"></a><strong>1. 编码、调制、码元概念</strong></h4><p>在计算机网络中，计算机需要处理和传输用户的文字、图片、音频和视频，它们可以统称为 <strong>消息</strong>。<strong>数据是运送消息的实体</strong>。计算机中的网卡将比特0和1变换成相应的 <strong>电信号</strong> 发送到网线，也就是说 <strong>信号是数据的电磁表现</strong>。</p>
+<p>由信源发出的原始电信号称为 <strong>基带信号</strong> ，基带信号分为 <strong>数字基带信号</strong>、<strong>模拟基带信号</strong> 两类。信号需要在<strong>信道</strong>中传输，信道可分为 <strong>数字信道</strong>和 <strong>模拟信道</strong> 两种。</p>
+<ul>
+<li><p>编码</p>
+<ul>
+<li>把数字信号转换为另一种数字信号，在数字信道中传输，称为 编码。例如，以太网使用 曼切斯特编码，4B&#x2F;5B，8B&#x2F;10B 等编码</li>
+<li>将模拟信号转换为数字信号，在数字信道中传输，也称为 编码。例如，对音频信号进行编码的脉码调制 PCM</li>
+<li>常见编码有 归零编码、不归零编码、曼彻斯特编码、差分曼彻斯特编码</li>
+</ul>
+</li>
+<li><p>调制</p>
+<ul>
+<li>将数字信号转换为模拟信号，在模拟信道中传输，称为 调制。例如，WIFI 采用补码键控、直接序列扩频、正交频分复用等调制方式</li>
+<li>将模拟信号转换为另一种模拟信号，在模拟信道中传输，也称为 调制。例如，语音数据加载到模拟的载波信号中传输</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/12.png"></p>
+<ul>
+<li>码元<ul>
+<li>码元是指在使用时间域的波形表示数字信号时，代表不同离散数值的基本波形。简单来说码元就是一段调制好的基本波形，可以表示比特信息</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/13.png"></p>
+<h4 id="2-常用编码"><a href="#2-常用编码" class="headerlink" title="2. 常用编码"></a><strong>2. 常用编码</strong></h4><h5 id="1-不归零编码（NRZ）：存在同步问题"><a href="#1-不归零编码（NRZ）：存在同步问题" class="headerlink" title="1. 不归零编码（NRZ）：存在同步问题"></a><strong>1. 不归零编码（NRZ）：存在同步问题</strong></h5><p>所谓不归零，就是指在整个码元时间内，电平不会出现零电平<br><img src="/images/408/ComputerNetwork/3/14.png"></p>
+<ul>
+<li><strong>需要额外一根传输线来传输时钟信号</strong>，接收方按时钟信号的节拍来逐个接收码元</li>
+<li>由于不归零编码存在同步问题，因此计算机网络中的数据传输不采用此类编码</li>
+</ul>
+<h5 id="2-归零编码（RZ）：自同步，编码效率低"><a href="#2-归零编码（RZ）：自同步，编码效率低" class="headerlink" title="2. 归零编码（RZ）：自同步，编码效率低"></a><strong>2. 归零编码（RZ）：自同步，编码效率低</strong></h5><p>每个码元传输结束后信号都要 “归零”，所以接收方只要在信号归零后进行采样即可，不需要单独的时钟信号。</p>
+<ul>
+<li>实际上，归零编码相当于将时钟信号用 “归零” 方式编码在了数据之内，这种称为 “<strong>自同步</strong>” 信号</li>
+<li>但是，归零编码中大部分的数据带宽都用来传输 “归零” 而浪费</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/15.png"></p>
+<h5 id="3-曼彻斯特编码"><a href="#3-曼彻斯特编码" class="headerlink" title="3. 曼彻斯特编码"></a><strong>3. 曼彻斯特编码</strong></h5><p>在每个码元时间的中间时刻，信号都会发生跳变。例如，负跳变表示比特 1，正跳变表示比特 0。</p>
+<ul>
+<li>码元中间时刻的跳变既表示时钟，又表示数据</li>
+<li>传统以太网就使用的曼切斯特编码</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/16.png"></p>
+<h5 id="4-差分曼彻斯特编码：比曼彻斯特编码变化少，更适合较高的传输速率"><a href="#4-差分曼彻斯特编码：比曼彻斯特编码变化少，更适合较高的传输速率" class="headerlink" title="4. 差分曼彻斯特编码：比曼彻斯特编码变化少，更适合较高的传输速率"></a><strong>4. 差分曼彻斯特编码：比曼彻斯特编码变化少，更适合较高的传输速率</strong></h5><ul>
+<li>跳变仅表示时钟</li>
+<li>码元开始处电平是否发生变化表示数据</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/17.png"></p>
+<p><strong>补充： 反向不归零编码</strong><br><strong>NRZI 编码（Non Return Zero Inverted Code）</strong>，即反向不归零编码。其实NRZI编码方式非常的简单，即信号电平翻转表示 0，信号电平不变表示 1。</p>
+<ul>
+<li><p>例如想要表示00100010(B)，则信号波形如下图所示：</p>
+<p>  <img src="/images/408/ComputerNetwork/3/18.png"></p>
+</li>
+</ul>
+<h4 id="3-基本调制方法"><a href="#3-基本调制方法" class="headerlink" title="3. 基本调制方法"></a><strong>3. 基本调制方法</strong></h4><p><img src="/images/408/ComputerNetwork/3/19.png"></p>
+<ul>
+<li>基本调制属于二元制，也就是只能调制出两种基本波形，每种波形表示1比特的信息量</li>
+<li>基本调制包括 调幅AM、调频FM、调相PM。调幅信号有两种不同振幅的基本波形构成；调频信号由两种不同频率的基本波形构成；调相信号由两种不同初相位的基本波形构成</li>
+<li>如果要使一个码元包含多个比特信息，可以采用混合调制的方法</li>
+</ul>
+<h4 id="4-混合调制"><a href="#4-混合调制" class="headerlink" title="4. 混合调制"></a><strong>4. 混合调制</strong></h4><p><strong>混合调制，属于多元制，也就是可以调制出多种基本波形</strong><br>因为频率和相位是相关的，即频率是相位随时间的变化率，所以一次只能调制频率和相位中的一个。通常情况下，相位和振幅可以结合起来一起调制，称为 <strong>正交振幅调制 QAM。</strong></p>
+<p>举例：正交振幅调制 QAM-16</p>
+<ul>
+<li><p>可以调制出 12 种相位</p>
+</li>
+<li><p>每种相位有 1 或 2 种振幅可选</p>
+</li>
+<li><p>因此共可以调制出 16 种码元（波形），每种码元可以对应表示 4 个比特<br><img src="/images/408/ComputerNetwork/3/20.png"></p>
+</li>
+<li><p>码元与 4 个比特的对应关系不能随便定义，应采用格雷码。任意两个相邻码元之间只有 1 个比特不同<br><img src="/images/408/ComputerNetwork/3/21.png"></p>
+</li>
+</ul>
+<h3 id="五、信道极限容量"><a href="#五、信道极限容量" class="headerlink" title="五、信道极限容量"></a>五、信道极限容量</h3><h4 id="1-信号失真"><a href="#1-信号失真" class="headerlink" title="1. 信号失真"></a>1. 信号失真</h4><p>信号在传输过程中会受到各种因素的影响，使得信号波形失去码元之间的清晰界限，这种现象称为 <strong>码间串扰</strong> ，如图<br><img src="/images/408/ComputerNetwork/3/22.png"><br><img src="/images/408/ComputerNetwork/3/23.png"></p>
+<ul>
+<li><strong>造成信号失真的因素</strong><ul>
+<li>码元传输速率</li>
+<li>信号传输距离</li>
+<li>噪声干扰</li>
+<li>传输媒体质量</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-奈氏准则、香农公式"><a href="#2-奈氏准则、香农公式" class="headerlink" title="2. 奈氏准则、香农公式"></a><strong>2. 奈氏准则、香农公式</strong></h4><p>奈奎斯特（Nyquist）定理又称 奈氏准则<br><img src="/images/408/ComputerNetwork/3/24.png"></p>
+<ul>
+<li><strong>码元传输速率</strong> 又称为 <strong>波特率、调制速率、波形速率</strong> 或 <strong>符号速率</strong>。它与比特比特率的关系：<ol>
+<li>当1个码元只携带 1 比特的信息量时，则波特率（码元&#x2F;秒）与比特率（比特&#x2F;秒）在数值上是相等的</li>
+<li>当1个码元携带 n 比特的信息量时，则波特率转换成比特率时，数值要乘以 n</li>
+</ol>
+</li>
+<li>要提高信息传输速率(比特率)，就必须设法使每一个码元能携带更多个比特的信息量。这需要采用多元制，例如 QAM-16</li>
+<li>实际信道所能传输的码元速率，要明显低于奈氏准则给出的上限值。奈氏准则是理想条件下推导的，没有考虑传输距离、噪声干扰等因素</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/25.png"></p>
+<ul>
+<li>信道带宽或信道中信噪比越大，信道的极限传输速率越高</li>
+<li>在实际信道上能够达到的信息传输速率要比该公式的极限传输速率低不少。这是因为在实际信道中，信号还要受到其他一些损伤，如各种脉冲干扰、信号在传输中的衰减和失真等，这些因素在香农公式中并未考虑</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/3/26.png"></p>
+<ul>
+<li>在信道带宽一定的情况下，根据奈氏准则和香农公式，要想 <strong>提高信息的传输速率</strong> 就必须采用 <strong>多元制</strong>（更好的调制方法）和努力 <strong>提高信道中的信噪比</strong></li>
+<li>自从香农公式发表后，各种新的信号处理和调制方法就不断出现，其目的都是为了尽可能地接近香农公式给出的传输速率极限</li>
+</ul>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2023/07/28/%E7%89%A9%E7%90%86%E5%B1%82/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2023/07/28/%E7%89%A9%E7%90%86%E5%B1%82/";
+            const title         = "「物理层」";
+            const excerpt       = `一、物理层基本概念物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段有许多不同方式，物理层的作用正是要尽可能的屏蔽掉这些传输媒体和通...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/408/" rel="tag">408</a>, <a class="tag-none-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2023-07-28T04:50:37.839Z" itemprop="dateModified">最后编辑：2023-07-28</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 计算机网络三种交换方式（电路交换，报文交换，分组交换）及其优缺点" href="/2023/07/28/计算机网络三种交换方式（电路交换，报文交换，分组交换）及其优缺点/">&lt; 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/p4.jpg" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                16
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                8
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/408/" style="font-size: 0.73em;">408</a> <a href="/tags/BFS/" style="font-size: 0.6em;">BFS</a> <a href="/tags/Linux/" style="font-size: 0.67em;">Linux</a> <a href="/tags/java/" style="font-size: 0.6em;">java</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" style="font-size: 0.6em;">树的遍历</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 0.73em;">计算机网络</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 0.6em;">递归</a> <a href="/tags/%E9%AB%98%E6%95%B0/" style="font-size: 0.8em;">高数</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/28/%E7%89%A9%E7%90%86%E5%B1%82/"><i class="fa  fa-book"></i> 物理层</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%89%E7%A7%8D%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F%EF%BC%88%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%EF%BC%8C%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2%EF%BC%8C%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%EF%BC%89%E5%8F%8A%E5%85%B6%E4%BC%98%E7%BC%BA%E7%82%B9/"><i class="fa  fa-book"></i> 计算机网络三种交换方式（电路交换，报文交换，分组交换）及其优缺点</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"><i class="fa  fa-book"></i> 计算机网络体系结构</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/"><i class="fa  fa-book"></i> 计算机网络的性能指标</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94%E6%A6%82%E5%BF%B5%E3%80%81%E7%BB%84%E6%88%90%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E5%88%86%E7%B1%BB/"><i class="fa  fa-book"></i> 计算机网络（1）——概念、组成、功能和分类</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2023 Blog 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by John Doe.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+    <script async src="/js/candy.min.js"></script>
+
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/xiaomai.model.json"},"display":{"position":"left","width":230,"height":350,"hOffset":-20,"vOffset":40},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>
