@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/p4.jpg">
+  
+  <title>IEEE754 | Blog</title>
+  
+  <meta name="author" content="古月方源" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="408, 计算机组成原理" />
+  
+  <meta name="description" content="在IEEE 754标准中浮点数由三部分组成：符号位（sign bit），阶码表示指数（biased exponent），尾数（fraction）。浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（double precision），它们两个所占的位数不同。  单精度浮点数（共32位）： 1个符号位 8个指数位 23个小数位 偏移量是127      双精度浮点数（共6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IEEE754">
+<meta property="og:url" content="http://example.com/2023/07/30/IEEE754/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="在IEEE 754标准中浮点数由三部分组成：符号位（sign bit），阶码表示指数（biased exponent），尾数（fraction）。浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（double precision），它们两个所占的位数不同。  单精度浮点数（共32位）： 1个符号位 8个指数位 23个小数位 偏移量是127      双精度浮点数（共6">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/p4.jpg">
+<meta property="article:published_time" content="2023-07-30T15:02:20.000Z">
+<meta property="article:modified_time" content="2023-08-01T09:13:58.070Z">
+<meta property="article:author" content="古月方源">
+<meta property="article:tag" content="408">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/p4.jpg">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-color-dark.min.css" media="(prefers-color-scheme: dark)"></script>
+    <script src="/js/kr-dark.min.js"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+    
+  </style>
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Blog</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/30/IEEE754/">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">IEEE754</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2023-07-30T15:02:20.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-07-30</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">古月方源</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            269
+                        
+                        字
+                    </li>
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1690881238070"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><p>在IEEE 754标准中浮点数由三部分组成：<strong>符号位（sign bit）</strong>，<strong>阶码表示指数（biased exponent）</strong>，<strong>尾数（fraction）</strong>。浮点数分为两种，<strong>单精度浮点数（single precision）</strong>和<strong>双精度浮点数（double precision）</strong>，它们两个所占的位数不同。</p>
+<ul>
+<li>单精度浮点数（共32位）：<ul>
+<li>1个符号位</li>
+<li>8个指数位</li>
+<li>23个小数位</li>
+<li>偏移量是127</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/4/4.png"></p>
+<ul>
+<li>双精度浮点数（共64位）：<ul>
+<li>1个符号位</li>
+<li>11个指数位</li>
+<li>52个小数位</li>
+<li>偏移量是1023</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/4/5.png"></p>
+<ul>
+<li><p>正无穷大</p>
+<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="61.573ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 27215.4 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-1-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-1-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-1-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><use data-c="30" xlink:href="#MJX-1-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(500,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(889,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">数</text></g><g data-mml-node="mi" transform="translate(1889,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">符</text></g><g data-mml-node="mo" transform="translate(2889,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(3500.2,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(4500.4,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(1000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(1500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(2000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(2500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(3000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(3500,0)"></use></g><g data-mml-node="mo" transform="translate(8500.4,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(8889.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">阶</text></g><g data-mml-node="mi" transform="translate(9889.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">码</text></g><g data-mml-node="mo" transform="translate(10889.4,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(11500.7,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="msub" transform="translate(12500.9,0)"><g data-mml-node="mn"><use data-c="30" xlink:href="#MJX-1-TEX-N-30"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(1000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(1500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(2000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(2500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(3000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(3500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(4000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(4500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(5000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(5500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(6000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(6500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(7000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(7500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(8000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(8500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(9000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(9500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(10000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(10500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(11000,0)"></use></g><g data-mml-node="mn" transform="translate(11533,-150) scale(0.707)"><use data-c="32" xlink:href="#MJX-1-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(24437.4,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(24826.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">尾</text></g><g data-mml-node="mi" transform="translate(25826.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">数</text></g><g data-mml-node="mo" transform="translate(26826.4,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g></g></g></svg></mjx-container>
+
+</li>
+<li><p>负无穷大</p>
+<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="61.573ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 27215.4 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-1-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-1-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-1-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-1-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(500,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(889,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">数</text></g><g data-mml-node="mi" transform="translate(1889,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">符</text></g><g data-mml-node="mo" transform="translate(2889,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(3500.2,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(4500.4,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(1000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(1500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(2000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(2500,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(3000,0)"></use><use data-c="31" xlink:href="#MJX-1-TEX-N-31" transform="translate(3500,0)"></use></g><g data-mml-node="mo" transform="translate(8500.4,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(8889.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">阶</text></g><g data-mml-node="mi" transform="translate(9889.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">码</text></g><g data-mml-node="mo" transform="translate(10889.4,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(11500.7,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="msub" transform="translate(12500.9,0)"><g data-mml-node="mn"><use data-c="30" xlink:href="#MJX-1-TEX-N-30"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(1000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(1500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(2000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(2500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(3000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(3500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(4000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(4500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(5000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(5500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(6000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(6500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(7000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(7500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(8000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(8500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(9000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(9500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(10000,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(10500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(11000,0)"></use></g><g data-mml-node="mn" transform="translate(11533,-150) scale(0.707)"><use data-c="32" xlink:href="#MJX-1-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(24437.4,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(24826.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">尾</text></g><g data-mml-node="mi" transform="translate(25826.4,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">数</text></g><g data-mml-node="mo" transform="translate(26826.4,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g></g></g></svg></mjx-container></li>
+</ul>
+<p><img src="/images/408/ComputerNetwork/4/2.png"></p>
+<p><img src="/images/408/ComputerNetwork/4/1.png"></p>
+<p><img src="/images/408/ComputerNetwork/4/3.png"></p>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2023/07/30/IEEE754/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2023/07/30/IEEE754/";
+            const title         = "「IEEE754」";
+            const excerpt       = `在IEEE 754标准中浮点数由三部分组成：符号位（sign bit），阶码表示指数（biased exponent），尾数（fraction）。浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（doub...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/408/" rel="tag">408</a>, <a class="tag-none-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2023-08-01T09:13:58.070Z" itemprop="dateModified">最后编辑：2023-08-01</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 数据链路层（一）" href="/2023/07/28/数据链路层（一）/">&lt; 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" cache主存映射" href="/2023/08/01/cache主存映射以及cache容量的计算/">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/p4.jpg" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                21
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                10
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/408/" style="font-size: 0.8em;">408</a> <a href="/tags/BFS/" style="font-size: 0.6em;">BFS</a> <a href="/tags/Linux/" style="font-size: 0.65em;">Linux</a> <a href="/tags/java/" style="font-size: 0.6em;">java</a> <a href="/tags/math/" style="font-size: 0.7em;">math</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" style="font-size: 0.6em;">树的遍历</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 0.65em;">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 0.75em;">计算机网络</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 0.6em;">递归</a> <a href="/tags/%E9%AB%98%E6%95%B0/" style="font-size: 0.75em;">高数</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2023/08/06/%E8%AE%A1%E7%BD%91%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/"><i class="fa  fa-book"></i> 计网的一些概念</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/08/01/cache%E4%B8%BB%E5%AD%98%E6%98%A0%E5%B0%84%E4%BB%A5%E5%8F%8Acache%E5%AE%B9%E9%87%8F%E7%9A%84%E8%AE%A1%E7%AE%97/"><i class="fa  fa-book"></i> cache主存映射</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/30/IEEE754/"><i class="fa  fa-book"></i> IEEE754</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/28/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%88%E4%B8%80%EF%BC%89/"><i class="fa  fa-book"></i> 数据链路层（一）</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/07/28/%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E7%9A%84%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80%E5%BC%8F/"><i class="fa  fa-book"></i> 常用函数的泰勒展开式</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2023 Blog 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 古月方源.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+    <script async src="/js/candy.min.js"></script>
+
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/xiaomai.model.json"},"display":{"position":"left","width":230,"height":350,"hOffset":-20,"vOffset":40},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>
